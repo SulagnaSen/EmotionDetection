@@ -1,12 +1,32 @@
-# EmotionDetection
-The project explores Convolutional Neural Networks (CNNs) for emotion detection. It covers training a model to analyze facial expressions, saving it, and real-time emotion analysis in videos with OpenCV. This hands-on approach demonstrates CNNs' role in computer vision for emotion recognition.
+# Emotion_detection_with_CNN
 
-The training phase of the CNN involves the adjustment of critical parameters, encompassing considerations such as batch size, learning rate, and epoch count. The strategic introduction of dropout layers serves to counter overfitting, ensuring the model's adaptability to a spectrum of facial expressions. Regular evaluation on an independent validation set, complemented by techniques like early stopping and learning rate modulation, meticulously hones the efficiency of the training process. Our code uses 2 methods of training the data.
-For one model training method, it is compiled with the Adam optimizer and categorical cross-entropy loss. We train the model on the training data with validation data. The model structure is saved in a JSON file and the trained model weights are saved in an HDF5 file.
-We have implemented another model training which implements data augmentation. It applies various transformations to the training images, such as rotation, width and height shifting, shearing, zooming, horizontal flipping, brightness adjustment, and vertical flipping. Next comes the data loading where images are resized to and converted to grayscale. Ultimately the data is generated in batches of size 64. Next comes the model compilation where Adam optimizer is used with a learning rate of 0.0001. Categorical cross-entropy is used as the loss function, and accuracy is used as a metric. Further model training is performed for 50 epochs.
+### Packages need to be installed (tensorflow is available only till python 3.11)
+- pip install numpy
+- pip install opencv-python
+- pip install keras
+- pip install --upgrade tensorflow
+- pip install pillow
+
+### Dataset used:
+This code uses below dataset from KAggle for training the models
+https://www.kaggle.com/datasets/msambare/fer2013
+
+### Train Emotion detector
+- We have stored the model obtained after training the datasets under "data" folder inside "code" folder as due to space restrictions we could not add the whole dataset.
+- In case the dataset has to be trained, kindly add the two folers "train" and "test" from the kaggle data to folder named "data" and run below commands
+- commands:
+- python CNNTraining.py
+- python AugmentedDataCNN_Training.py
+
+Running the training files generate below files under model folder
+emotion_model.json
+emotion_model.h5
+
+### run emotion detection
+- python FaceEmotionDetection.py (This file performs the emotion detection qith squares around the faces once detected and the name of the respective emotion)
+- python PerformanceAnalysis.py (This file generates the confusion matrix and gives precision, F1-Score, Recall)
 
 
-Once the model trained, it is validated on the validation data. Ultimately, the model is evaluated on the test data to get predictions.
-Here, I make use of dictionary mapping of emotion indices to emotion labels. The emotions considered are: “angry”, “disgusted”, “fearful”, “happy”, “disgusted”, “sad” and “surprised”. The trained CNN model JSON and HDF5 files generated above are used here.
+### Expected Output
 
-For analyzing the performance metrics, an image data generator is initialized for test data with rescaling and a test data generator preprocesses all test images converting them to grayscale. The confusion matrix, accuracy, precision, recall, and F1-score are calculated using scikit-learn metrics in python.
+Emotion Detection output will produce a window with the vide passed and a green square around the faces detected and the name of the emotion written on top of the square.
